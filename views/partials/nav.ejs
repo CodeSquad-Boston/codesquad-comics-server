@@ -6,13 +6,17 @@
 			<li><a href="/contact">Contact</a></li>
 		</div>
 		<div>
-			<% if(isUserLoggedIn) { %>
+			<!-- disabled the for loop to render the app for dynamic, period 2 -->
+			<!-- 
+				<%# if(isUserLoggedIn) { %>
 			<li><a href="/admin">Admin</a></li>
 			<li><a href="/logout">Logout</a></li>
-			<% } else { %>
+			<%# } else { %>
 			<li><a href="/login">Login</a></li>
 			<li><a href="/signup">Signup</a></li>
-			<% } %>
+			<%# } %>
+			 -->
+			
 		</div>
 	</ul>
 	<%- include('searchForm') %>

@@ -10,15 +10,30 @@
 
 		<h1>Books</h1>
 		<div class="book-container">
-			<% for (book of books) { %>
+			<!-- disabled the for loop to render the app for dynamic, period 2 -->
+			<!-- 
+				<%# for (book of books) { %>
 			<div class="book-row">
-				<a href="books/<%= book._id %>">
-					<img src="/images/<%= book.image %>" alt="<%= book.title %>" />
+				<a href="books/<%# book._id %>">
+					<img src="/images/<%# book.image %>" alt="<%# book.title %>" />
 				</a>
-				<p><%= book.title %></p>
-				<p><em>by</em> <%= book.author %></p>
+				<p><%# book.title %></p>
+				<p><em>by</em> <%# book.author %></p>
 			</div>
-			<% } %>
+			<%# } %>
+			 -->
+			
+			<!-- hardcoded for test purposes -->
+			<div class="book-row">
+				<a href="books/001">
+					<img src="/images/batman.jpeg" alt="Batman" />
+				</a>
+				<p>Batman</p>
+				<p><em>by</em> Kit A.</p>
+			</div>
+
+			<!-- dynamically pass in data from app.js -->
+			
 		</div>
 	</body>
 </html>
