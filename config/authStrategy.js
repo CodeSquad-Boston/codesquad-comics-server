@@ -1,3 +1,5 @@
+//disabled 
+/*
 const passport = require('passport');
 const crypto = require('crypto');
 const LocalStrategy = require('passport-local').Strategy;
@@ -61,3 +63,4 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
+*/

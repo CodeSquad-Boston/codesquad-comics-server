@@ -1,3 +1,5 @@
+//disabled
+/*
 const express = require('express');
 
 const { getAllBooks, getBook, createBook, editBook, deleteBook } = require('../controllers/bookControllers');
@@ -16,3 +18,4 @@ router.put('/edit/:id', editBook);
 router.delete('/delete/:id', deleteBook);
 
 module.exports = router;
+*/

@@ -1,3 +1,5 @@
+//disabled
+/*
 const Book = require('../models/bookModel');
 
 const getAllBooks = async (req, res, next) => {
@@ -96,3 +98,4 @@ const deleteBook = async (req, res, next) => {
 };
 
 module.exports = { getAllBooks, getBook, createBook, editBook, deleteBook };
+*/

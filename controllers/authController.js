@@ -1,3 +1,5 @@
+//disabled
+/*
 const crypto = require('crypto');
 
 const User = require('../models/userModel');
@@ -66,3 +68,4 @@ const signupRequest = (req, res, next) => { //signupRequest
 };
 
 module.exports = { loginLocalFailed, logoutRequest, signupRequest };
+*/
