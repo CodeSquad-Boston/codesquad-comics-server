@@ -1,44 +1,40 @@
-require('dotenv').config();
-require('./config/connection');
-require('./config/authStrategy');
-
 const express = require('express');
 const morgan = require('morgan');
-const helmet = require('helmet');
-const path = require('path');
-const passport = require('passport');
-const cors = require('cors');
-
-const session = require('express-session');
-
-const booksRoutes = require('./routes/booksRoutes');
-const authRoutes = require('./routes/authRoutes');
-
+const path = require('node:path');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 3000;
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname + '/views'));
 
-app.use(helmet({ contentSecurityPolicy: false }));
 app.use(morgan('dev'));
-app.use(cors());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname + '/public')));
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false,
-}));
+// Routes
+app.get('/', (request, response) => {
+  response.send("This is the index/home page");
+});
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.get('/about', (request, response) => {
+  response.send("This is the about page");
+});
 
-app.use('/api/books', booksRoutes);
-app.use('/', authRoutes);
+app.get('/login', (request, response) => {
+  response.send("This is the login page");
+});
 
-app.listen(PORT);
-console.log(`The server is listening on port ${PORT}`);
+app.get('/admin-console', (request, response) => {
+  response.send("This is the admin console page");
+});
+
+app.get('/admin-console/create-book', (request, response) => {
+  response.send("This is the create book page");
+});
+
+//Server
+app.listen(PORT, () => {
+    console.log(`The server is listening on port ${PORT}`);
+    console.log(`http://localhost:3000/`)
+});
