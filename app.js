@@ -71,6 +71,63 @@ app.get('/api/books/delete/:id', (request, response, next) => {
 // routes have been tested
 
 
+// POTENTIAL BONUS QUESTION: Three teaching fellows want to be showcased on the teacher route, which is under tight wraps until you develop it!
+
+// Initialize a variable called teachingFellows and then create an array that contains an object for each TF. Each object should have a key of _id, firstName, lastName and favColor with a corresponding string as a value.
+
+// The info is as follows: Kit Amreik, who's favorite color is blue with and id of 001.
+// Test Tommy, who's favorite color is teal with and id of 002.
+// And finally, Bout It Betty, who's favorite color is brown with and id of 003.
+
+//Don't forget the status code to let you know the route loaded OK!
+
+let teachingFellows = [
+  {
+    _id: "001",
+    firstName: "Kit",
+    lastName: "Amreik",
+    favColor: "blue"
+  },
+  {
+    _id: "002",
+    firstName: "Test",
+    lastName: "Tommy",
+    favColor: "Teal"
+  },
+  {
+    _id: "003",
+    firstName: "Bout it",
+    lastName: "Betty",
+    favColor: "brown"
+  }
+]
+
+app.get('/teacher', (request, response, next) => {
+  response.status(200).json(
+    {success: {message: [
+      {
+        _id: "001",
+        firstName: "Kit",
+        lastName: "Amreik",
+        favColor: "blue"
+      },
+      {
+        _id: "002",
+        firstName: "Test",
+        lastName: "Tommy",
+        favColor: "Teal"
+      },
+      {
+        _id: "003",
+        firstName: "Bout it",
+        lastName: "Betty",
+        favColor: "brown"
+      }
+    ]}, statusCode: 200}
+    );
+})
+
+
 //Server
 app.listen(PORT, () => {
     console.log(`The server is listening on port ${PORT}`);
