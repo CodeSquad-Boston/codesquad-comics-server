@@ -5,13 +5,14 @@ const { v4:uuid } = require('uuid');
 // Add placeholder statement for transition into models. Doesn't affect code functionality
 const booksData = require('../data/data');
 
-//GET to the path of / with the handler function of getAllBooks where you would be able to see all of the books in inventory
-const getAllBooks = async (req, res, next) => {
 //Direction: set a constant of getAllBooks and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
-
+const getAllBooks = async (req, res, next) => {
 //Direction: within the arrow function's object, stage a try/catch statement. Make sure to account for error handling with an error message.
 //TESTING UUID- NO UUID here
     try {
+        // add the await keyword
+        await
+        //then chain the res.status().json() message/data you're passing through
         res
         .status(200)
         .json({ success: { message: "Found all books!" }, 
@@ -145,10 +146,8 @@ const getAllBooks = async (req, res, next) => {
     }
 };
 
-//GET to the path of /:id with the handler function of getBook where you would be able to see an individual book by their specific id
-const getBook = async (req, res, next) => {
 //Direction: set a constant of getBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
-
+const getBook = async (req, res, next) => {
 // Direction: set a constant of {id} and equate that to the req.params object.
     const { id } = req.params; //does work 
 
@@ -282,6 +281,9 @@ const getBook = async (req, res, next) => {
     ] //does work
     //Direction: stage a try/catch statement with a status and a .json success message. 
     try {
+        // add the await keyword
+        await
+        //then chain the res.status().json() message/data you're passing through
         res
             .status(200)
             .json({ success: { message: "Found the book!" },
@@ -305,9 +307,49 @@ const getBook = async (req, res, next) => {
         .status(400)
         .json({ error: { message: "Something went wrong getting the book!" }, statusCode: 400 });
     }
-  };
+};
+
+//Direction: set a constant of createBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
+const createBook = async (req, res, next) => {
+    //Direction: within the arrow function's object, we are going to define our future form keys that align with the keys mentioned in the data.js object so we can capture user input and register that in our database.
+
+    // the keys are: { title, author, publisher, genre, pages, rating, synopsis }. Set that as a constant and equate it to the req.body object
+    const { title, author, publisher, genre, pages, rating, synopsis } = req.body;
+  
+    //Direction: Then, we're going to define a constant variable of newBook and equate that to a new Book constructor object with keys that align with the keys mentioned in the data.js object so we can capture user input and register that in our database.
+    const newBook = new Book({
+      title,
+      author,
+      publisher,
+      genre,
+      pages,
+      rating,
+      synopsis
+    });
+
+    //Yusuf's code
+    //Direction: Next, stage a try/catch statement. Make sure to account for error handling with an error message.
+    
+    try {
+    // add the await keyword and define the newBook with the .save() method. More information will come in a later unit.
+      await newBook.save();
+        //then chain the res.status().json() message/data you're passing through
+      res
+    //   use the 201 status code to say that the request has succeeded and new resource(s) has been created
+        .status(201)
+        .json({ success: { message: "A new book is created" }, 
+        // insert a key value pair of data: newBook to reflect the change
+        data: newBook, statusCode: 201 });
+    } catch (err) {
+      res
+        .status(400)
+        .json({ error: { message: "Something went wrong creating a book!" }, statusCode: 400 });
+    }
+};
+
+
 
 //To test:
-module.exports = { getAllBooks, getBook };
+module.exports = { getAllBooks, getBook, createBook };
 
 //module.exports = { getAllBooks, getBook, createBook, editBook, deleteBook };

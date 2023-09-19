@@ -7,7 +7,7 @@ const express = require('express');
 //const { getAllBooks, getBook, createBook, editBook, deleteBook } = require('../controllers/bookController');
 
 //to test:
-const { getAllBooks, getBook} = require('../controllers/bookController');
+const { getAllBooks, getBook, createBook} = require('../controllers/bookController');
 
 //.get() .post() .put() .delete() are routing methods that allow CRUD Operations to happen. It will lead to the function found in the controller
 
@@ -16,14 +16,14 @@ const { getAllBooks, getBook} = require('../controllers/bookController');
 const router = express.Router();
 
 //GET to the path of / with the handler function of getAllBooks where you would be able to see all of the books in inventory. 
-//maybe: Make sure you comment out the index route in app.js you had for testing.
 router.get('/', getAllBooks);
 
 //GET to the path of /:id with the handler function of getBook where you would be able to see an individual book by their specific id
 router.get('/:id', getBook);
 
 //POST to the path of /create with the handler function of createBook where you would be able to create a new book entry
-//router.post('/create', createBook);
+router.post('/create', createBook);
+
 
 //PUT to the path of /edit/:id with the handler function of editBook, where you would be able to see an individual book by their specific id and update that same book you chose
 //router.put('/edit/:id', editBook);

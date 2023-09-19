@@ -14,7 +14,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname + '/public')));
 
-//Important/maybe: comment out the index route now
+//Important: keep index route for ability to get to localhost initialization
 app.get('/', (request, response, next) => {
   //response.send("This is the index/home page");
  // CHANGE the handler from .send to status().json with a success message 
@@ -28,8 +28,6 @@ app.get('/', (request, response, next) => {
 // Add:
 app.use('/api/books', booksRoutes);
 //app.use('/', authRoutes); //Kit commentary: KEEP commented out for now, have students code in for now
-
-// note from Yusuf's code, change app to router (?)
 
 //formerly CCS-2 code, students should have commented out for testing or removed the below routes
 /*
