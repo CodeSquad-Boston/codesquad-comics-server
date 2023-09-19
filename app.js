@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const path = require('node:path');
 const app = express();
 const PORT = 3000;
-// Add:
-const router = express.Router();
 
 // Define the Routing Variable 
 const booksRoutes = require('./routes/bookRoutes');
@@ -16,7 +14,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname + '/public')));
 
-//keep the index route
+//Important/maybe: comment out the index route now
 app.get('/', (request, response, next) => {
   //response.send("This is the index/home page");
  // CHANGE the handler from .send to status().json with a success message 
@@ -24,10 +22,11 @@ app.get('/', (request, response, next) => {
 
 })
 
+
 //different routing to shift towards React API
 // Routing Paths- As a middleware with the .use() to detect the request that is coming through a specific path, it will then call the router function
 // Add:
-router.use('/api/books', booksRoutes);
+app.use('/api/books', booksRoutes);
 //app.use('/', authRoutes); //Kit commentary: KEEP commented out for now, have students code in for now
 
 // note from Yusuf's code, change app to router (?)
