@@ -342,6 +342,7 @@ const createBook = async (req, res, next) => {
     const { title, author, publisher, genre, pages, rating, synopsis } = req.body;
   
     //Direction: Then, we're going to define a constant variable of newBook and equate that to a new Book constructor object with keys that align with the keys mentioned in the data.js object so we can capture user input and register that in our database.
+
     const newBook = new Book({
       title,
       author,
@@ -359,7 +360,13 @@ const createBook = async (req, res, next) => {
     // add the await keyword and define the newBook with the .save() method. More information will come in a later unit.
       await newBook.save();
         //then chain the res.status().json() message/data you're passing through
-      res
+      
+    //Kit: I think we should have a res.status.json for 200/OK so they can at least access the page, even with a 304  
+    res
+        .status(200)
+        .json({ success: { message: "You have accessed the create page." }, 
+        
+        data: newBook, statusCode: 200 })
     //   use the 201 status code to say that the request has succeeded and new resource(s) has been created
         .status(201)
         .json({ success: { message: "A new book is created" }, 
@@ -372,7 +379,43 @@ const createBook = async (req, res, next) => {
     }
 };
 
+//Direction: set a constant of editBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
+const editBook = async (req, res, next) => {
+     // Direction: set a constant of {id} and equate that to the req.params object.
+    const { id } = req.params;
+     //Direction: within the arrow function's object, we are going to define our future form keys that align with the keys mentioned in the data.js object so we can capture user input and register that in our database.
 
+    // the keys are: { title, author, publisher, genre, pages, rating, synopsis }. Set that as a constant and equate it to the req.body object
+    const { title, author, publisher, genre, pages, rating, synopsis } = req.body;
+  
+    //EXPERIMENTAL CODE
+
+    //END
+
+    //Yusuf's code
+    //Direction: Next, stage a try/catch statement. Make sure to account for error handling with an error message.
+    try {
+      await Book.findByIdAndUpdate(id, {
+        $set: {
+          title,
+          author,
+          publisher,
+          genre,
+          pages,
+          rating,
+          synopsis
+        }
+      }, { new: true });
+  
+      res
+        .status(201)
+        .json({ success: { message: "Book is updated" }, statusCode: 201 });
+    } catch (err) {
+      res
+        .status(400)
+        .json({ error: { message: "Something went wrong while editing the book~" }, statusCode: 400 });
+    }
+  };
 
 //To test:
 module.exports = { getAllBooks, getBook, createBook };
