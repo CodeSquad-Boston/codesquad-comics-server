@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const path = require('node:path');
 const app = express();
 const PORT = 3000;
-const cors = require('cors');
+const cors = require('cors'); //CCS-2 code, students should have coded this in already
 
 // Define the Routing Variable 
 const booksRoutes = require('./routes/bookRoutes');
@@ -12,10 +12,10 @@ const booksRoutes = require('./routes/bookRoutes');
 
 //Middleware
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors()); //CCS-2 code, students should have coded this in already
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false })); //CCS-2 code, students should have coded this in already
 app.use(express.static(path.join(__dirname + '/public')));
 
 //Important: keep index route for ability to get to localhost initialization

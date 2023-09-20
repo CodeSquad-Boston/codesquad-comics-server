@@ -1,12 +1,11 @@
 // Added on CCS-3, part 1 - Moving handlers to their new home
 
-// Add placeholder statement for transition into models. Doesn't affect code functionality
+// Add placeholder statement for transition into models. Create a constant of booksData and require the path to access it.
 const booksData = require('../data/data');
 
 //Direction: set a constant of getAllBooks and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
 const getAllBooks = async (req, res, next) => {
 //Direction: within the arrow function's object, stage a try/catch statement. Make sure to account for error handling with an error message.
-//TESTING UUID- NO UUID here
     try {
         // add the await keyword
         await
@@ -15,8 +14,10 @@ const getAllBooks = async (req, res, next) => {
         .status(200)
         .json({ success: { message: "Found all books!" }, 
         //revise the data object like so
-        // Yusuf: data: booksData
-        data: {books: [
+        //booksData had an empty object
+        data: booksData, statusCode: 200 }); //statusCode successfully triggered after insertion of data.js
+            /*
+            [
             //insert data.js object w/o uuid
             {  
                 //add idea manually 1,2
@@ -128,7 +129,10 @@ const getAllBooks = async (req, res, next) => {
                 synopsis: "In this graphic novel adaptation of Octavia E. Butler’s Parable of the Sower by Damian Duffy and John Jennings, the award-winning team behind Kindred: A Graphic Novel Adaptation, the \"author\" portrays a searing vision of America’s future. In the year 2024, the country is marred by unattended environmental and economic crises that lead to social chaos. Lauren Olamina, a preacher’s daughter living in Los Angeles, is protected from danger by the walls of her gated community. However, in a night of fire and death, what begins as a fight for survival soon leads to something much more: a startling vision of human destiny . . . and the birth of a new faith.",
                 image: "parable-of-the-sower.jpg"
               }
-        ]}, statusCode: 200 }); //statusCode successfully triggered after insertion of data.js
+        ]
+          */
+    
+   
         //students do not know models at this time
          /*
       //await Book.find({}) // disabling for testing 
@@ -148,9 +152,29 @@ const getAllBooks = async (req, res, next) => {
 
 //Direction: set a constant of getBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
 const getBook = async (req, res, next) => {
-// Direction: set a constant of {id} and equate that to the req.params object.
+    // Direction: set a constant of {id} and equate that to the req.params object.
     const { id } = req.params; //does work 
 
+    //Direction: create a constant of foundBook and set that to the data.js object, then use chaining to find() that book via an arrow function, and begin a second chain of book.id and STRICTLY equate that to a numeric id using the Number method.
+    const foundBook = booksData.find(book => book.id === Number(id));
+
+    //Now, stage a try/catch statement. Make sure to account for error handling with an error message.
+    try {
+        // add the await keyword
+        await
+        //then chain the res.status().json() message/data you're passing through
+        res
+        .status(200)
+        .json({ success: { message: "Found all books!" }, 
+        //reference the foundBook in the data value
+        data: foundBook, statusCode: 200 }); //statusCode successfully triggered after insertion of data.js
+    } catch (err) {
+        res
+          .status(400)
+          .json({ error: { message: "Something went wrong creating a book!" }, statusCode: 400 });
+    }
+
+/*
 //Direction: To generate a unique identifier using the uuid package, store the generated id in a variable and use it later in your code. Name the variable foundBookId
 
     //test 
@@ -293,6 +317,12 @@ const getBook = async (req, res, next) => {
                 //foundBook works
                 //foundBook[0] - this is the answer
                 foundBook[0]}, statusCode: 200 });
+    //Direction:  Make sure to account for error handling with an error message.
+    } catch (err) {
+      res
+        .status(400)
+        .json({ error: { message: "Something went wrong getting the book!" }, statusCode: 400 });
+    }
     /*
          await Book.findOne({ _id: id })
         .then(foundBook => {
@@ -301,13 +331,8 @@ const getBook = async (req, res, next) => {
             .json({ success: { message: "Found the book!" }, data: foundBook, statusCode: 200 });
         });
     */
-    //Direction:  Make sure to account for error handling with an error message.
-    } catch (err) {
-      res
-        .status(400)
-        .json({ error: { message: "Something went wrong getting the book!" }, statusCode: 400 });
-    }
 };
+
 
 //Direction: set a constant of createBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
 const createBook = async (req, res, next) => {
