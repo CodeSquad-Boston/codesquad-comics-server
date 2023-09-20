@@ -3,11 +3,14 @@ const morgan = require('morgan');
 const path = require('node:path');
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 
+//Middleware
 app.use(morgan('dev'));
+app.use(cors());
 
 app.use(express.json());
-//configure the public directory (is having the slash pertinent)
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname + '/public')));
 
 // formerly from CCS-1
