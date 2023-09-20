@@ -1,6 +1,5 @@
 // Added on CCS-3, part 1 - Moving handlers to their new home
-// At the top of your file where you want to generate a unique identifier, import the uuid package. Make sure to run npm i uuid.
-//const { v4:uuid } = require('uuid'); //disable
+
 // Add placeholder statement for transition into models. Doesn't affect code functionality
 const booksData = require('../data/data');
 
