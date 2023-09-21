@@ -7,7 +7,7 @@ const express = require('express');
 //const { getAllBooks, getBook, createBook, editBook, deleteBook } = require('../controllers/bookController');
 
 //to test:
-const { getAllBooks, getBook, createBook} = require('../controllers/bookController');
+const { getAllBooks, getBook, createBook, editBook} = require('../controllers/bookController');
 
 //.get() .post() .put() .delete() are routing methods that allow CRUD Operations to happen. It will lead to the function found in the controller
 
@@ -26,7 +26,7 @@ router.post('/create', createBook);
 
 
 //PUT to the path of /edit/:id with the handler function of editBook, where you would be able to see an individual book by their specific id and update that same book you chose
-//router.put('/edit/:id', editBook);
+router.put('/edit/:id', editBook);
 
 //DELETE to the path of /delete/:id with the handler function of deleteBook, where you would be able to see an individual book by their specific id and delete that same book you chose
 //router.delete('/delete/:id', deleteBook);
