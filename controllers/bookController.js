@@ -410,7 +410,30 @@ const editBook = async (req, res, next) => {
     }
 };
 
-//To test:
-module.exports = { getAllBooks, getBook, createBook, editBook };
+const deleteBook = async (req, res, next) => {
+    // Direction: set a constant of {id} and equate that to the req.params object.
+    const { id } = req.params;
+    //EXPERIMENTAL - doesn't affect code functionality
+    const foundBook = booksData.find(book => book.id === Number(id));
 
-//module.exports = { getAllBooks, getBook, createBook, editBook, deleteBook };
+    const index = comics.indexOf(foundBook);
+    comics.splice(index, 1);
+    //END
+
+    //Yusuf's code
+    //Direction: Next, stage a try/catch statement. Make sure to account for error handling with an error message.
+    try {
+    // add the await keyword and chain that to the findByIdAndDelete() method with 1 parameter, id 
+      await Book.findByIdAndDelete(id);
+      //then chain the res.status().json() message/data you're passing through
+      res
+        .status(200)
+        .json({ success: { message: "Book deleted successfully!" }, statusCode: 200 });
+    } catch (err) {
+      res
+        .status(400)
+        .json({ error: { message: "Something went wrong while deleting the book!" }, statusCode: 400 });
+    }
+  };
+
+module.exports = { getAllBooks, getBook, createBook, editBook, deleteBook };

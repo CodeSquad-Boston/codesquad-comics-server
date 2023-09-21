@@ -4,10 +4,7 @@
 const express = require('express');
 
 //link the handler functions to their controller
-//const { getAllBooks, getBook, createBook, editBook, deleteBook } = require('../controllers/bookController');
-
-//to test:
-const { getAllBooks, getBook, createBook, editBook} = require('../controllers/bookController');
+const { getAllBooks, getBook, createBook, editBook, deleteBook } = require('../controllers/bookController');
 
 //.get() .post() .put() .delete() are routing methods that allow CRUD Operations to happen. It will lead to the function found in the controller
 
@@ -23,13 +20,17 @@ router.get('/:id', getBook);
 
 //POST to the path of /create with the handler function of createBook where you would be able to create a new book entry
 router.post('/create', createBook);
-
+//Note: navigating to http://localhost:3000/api/books/create/ will send a success message of "Found all books!", status code of 200 to denote the routing is working. Neither numbers nor :id after the slash in create will work.
 
 //PUT to the path of /edit/:id with the handler function of editBook, where you would be able to see an individual book by their specific id and update that same book you chose
 router.put('/edit/:id', editBook);
 
+//Note: navigating to http://localhost:3000/api/books/edit/ will send a success message of "Found all books!", status code of 200 to denote the routing is working. Neither numbers nor :id after the slash in edit will work.
+
 //DELETE to the path of /delete/:id with the handler function of deleteBook, where you would be able to see an individual book by their specific id and delete that same book you chose
-//router.delete('/delete/:id', deleteBook);
+router.delete('/delete/:id', deleteBook);
+
+//Note: navigating to http://localhost:3000/api/books/delete/ will send a success message of "Found all books!", status code of 200 to denote the routing is working. Neither numbers nor :id after the slash in delete will work.
 
 //export the router variable to be able to accessed throughout the app
 module.exports = router;
