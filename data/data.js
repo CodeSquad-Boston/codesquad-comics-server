@@ -1,6 +1,4 @@
 //refactoring after express meeting- manually added IDs per Yusuf's suggestion
-
-//defining as books, Book not working
 const book = [
     {  
       id: 1,
