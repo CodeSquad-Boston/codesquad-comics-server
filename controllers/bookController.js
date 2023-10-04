@@ -410,14 +410,17 @@ const editBook = async (req, res, next) => {
     }
 };
 
+//Direction: set a constant of deleteBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
 const deleteBook = async (req, res, next) => {
     // Direction: set a constant of {id} and equate that to the req.params object.
     const { id } = req.params;
     //EXPERIMENTAL - doesn't affect code functionality
+    /*
     const foundBook = booksData.find(book => book.id === Number(id));
 
     const index = comics.indexOf(foundBook);
     comics.splice(index, 1);
+    */
     //END
 
     //Yusuf's code
