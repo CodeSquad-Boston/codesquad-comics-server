@@ -165,13 +165,13 @@ const getBook = async (req, res, next) => {
         //then chain the res.status().json() message/data you're passing through
         res
         .status(200)
-        .json({ success: { message: "Found all books!" }, 
+        .json({ success: { message: "Found the book you are looking for!" }, 
         //reference the foundBook in the data value
         data: foundBook, statusCode: 200 }); //statusCode successfully triggered after insertion of data.js
     } catch (err) {
         res
           .status(400)
-          .json({ error: { message: "Something went wrong creating a book!" }, statusCode: 400 });
+          .json({ error: { message: "Something went wrong retrieving a book!" }, statusCode: 400 });
     }
 
 /*
