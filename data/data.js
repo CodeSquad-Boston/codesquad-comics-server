@@ -1,4 +1,3 @@
-//refactoring after express meeting- manually added IDs per Yusuf's suggestion
 const book = [
     {  
       id: 1,
@@ -124,4 +123,3 @@ const book = [
 ]
 
 module.exports = book;
-//make sure to upload new version of this file to CCS-3 instructions
