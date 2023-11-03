@@ -14,19 +14,24 @@ const loginLocalFailed = (req, res, next) => {
         statusCode: 401,
       }); //for the json method, have an object that is an error and contains a message that says "Username or password is incorrect." Make sure to have the statusCode of 401.
 };
-  
-  const logoutRequest = (req, res, next) => {
+
+//Direction: set a constant of logoutRequest and equate that to a function where you have a request, response and the next keyword as a parameter before an arrow function.
+const logoutRequest = (req, res, next) => {
+    //use the logout function with the error keyword as a parameter
     req.logout((error) => {
-      if (error) {
+        //use an if statement to catch errors
+        if (error) {
+            //Within the function, stage a res.status().json(). The status should be a 400 to signal an Bad Request error.
         res
-          .status(400)
-          .json({ error: { message: "Something went wrong!" }, statusCode: 400 });
-      }
-      res
+            .status(400)
+            .json({ error: { message: "Something went wrong!" }, statusCode: 400 }); //For the json method, have an object that is an error and contains a message that says "Something went wrong!". Make sure to have the statusCode of 400.
+        }
+        //otherwise, stage a res.status().json(). The status should be a 200 to signal an OK response.
+        res
         .status(200)
-        .json({ success: { message: "User logged out!" }, statusCode: 200 });
+        .json({ success: { message: "User logged out!" }, statusCode: 200 }); //For the json method, have an object that is success and contains a message that says "User logged out!". Make sure to have the statusCode of 200.
     });
-  };
+};
   
   const signupRequest = (req, res, next) => {
     //signupRequest
@@ -81,7 +86,7 @@ const loginLocalFailed = (req, res, next) => {
         }
       }
     });
-  };
+};
 
 //module.exports the controllers
 module.exports = { loginLocalFailed, logoutRequest, signupRequest };
