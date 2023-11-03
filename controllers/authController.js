@@ -80,21 +80,23 @@ const signupRequest = (req, res, next) => {
             statusCode: 201,
           }); //For the json method, have an object that is success and contains a message that says "New user is created". Make sure to have the statusCode of 201.
       } catch (err) { //have the catch statement catch errors, or err.
+        //stage if/else statement
         if (err.code === 11000 && err.keyPattern.username) {
           // Duplicate key error for the username field
+          //If the error code is equal to 11000, which may happen when a document does not have a value for the indexed field or due to the wrong syntax used AND the error's keyPattern through the username are detected, chain a res.status().json().
           res
-            .status(400)
+            .status(400) //The status should be a 400 to signal an Bad Request error.
             .json({
               error: { message: "Username already exists." },
               statusCode: 400,
-            });
-        } else {
+            }); //For the json method, have an object that is an error and contains a message that says "Username already exists". Make sure to have the statusCode of 400.
+        } else { //otherwise, we should tell the user that there was a server side error. Stage a res.status().json(). The status should be a 500 to signal an internal server error response.
           res
             .status(500)
             .json({
               error: { message: "Internal server error." },
               statusCode: 500,
-            });
+            });  //For the json method, have an object that is an error and contains a message that says"Internal server error". Make sure to have the statusCode of 500.
         }
       }
     });
