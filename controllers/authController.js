@@ -61,7 +61,7 @@ const signupRequest = (req, res, next) => {
         req.login(newUser, (err) => {
             //stage an if statement that allows for error handling
           if (err) {
-            //Within the function, stage a res.status().json(). The status should be a 400 to signal an Bad Request error.
+            //Within the if statement, stage a res.status().json(). The status should be a 400 to signal an Bad Request error.
             res
               .status(400)
               .json({
@@ -90,7 +90,7 @@ const signupRequest = (req, res, next) => {
               error: { message: "Username already exists." },
               statusCode: 400,
             }); //For the json method, have an object that is an error and contains a message that says "Username already exists". Make sure to have the statusCode of 400.
-        } else { //otherwise, we should tell the user that there was a server side error. Stage a res.status().json(). The status should be a 500 to signal an internal server error response.
+        } else { //otherwise, we should tell the user that there was a server side error in the else statement. Stage a res.status().json(). The status should be a 500 to signal an internal server error response.
           res
             .status(500)
             .json({
