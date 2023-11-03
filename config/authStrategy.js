@@ -6,6 +6,7 @@ const LocalStrategy = require("passport-local").Strategy;
 //Test: define the github strategy
 
 //See if it works - google strategy
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 //define the User model
 const User = require('../models/userModel')
@@ -40,6 +41,19 @@ passport.use( //container to use the local strategy
 //implement the github strategy
 
 //implement the google strategy
+passport.use(new GoogleStrategy({ //Use passport.use() to create a new GoogleStrategy method and create a container
+    //The first param is an object that includes the following keys: clientID, clientSecret, callbackURL
+  clientID: process.env.GOOGLE_CLIENT_ID, //Use the Environment Variable method as the value for both the clientID and clientSecret
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET, //Use the Environment Variable method as the value for both the clientID and clientSecret
+  callbackURL: 'http://localhost:3000/auth/google'
+},
+  (accessToken, refreshToken, profile, done) => { //The second param is a function in which there are 4 parameters
+    // User.create({ username: profile.username, firstName: profile.displayName, strategy: "Google" });
+    console.log(profile); //console.log the profile
+    return done(null, profile); //return the done callback function with two parameters - null and profile.
+
+  })
+);
 
 //use Passport documentation to implement the serializeUser/deserializeUser functions 
 passport.serializeUser((user, done) => { //Tell passport to serializeUser. Make a function with two parameters - user and a callback function called done.
