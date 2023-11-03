@@ -2,7 +2,6 @@ require('dotenv').config();
 require('./config/connection');
 require('./config/authStrategy'); // CCS-7 addition of require authStrategy
 
-//END
 const express = require('express');
 const morgan = require('morgan');
 const path = require('node:path');
