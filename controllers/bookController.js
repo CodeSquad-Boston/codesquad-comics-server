@@ -1,21 +1,15 @@
-// Added on CCS-3, part 1 - Moving handlers to their new home
+//comment out the booksData code
+//const booksData = require('../data/data');
+const Book = require('../models/bookModel'); //summon the Book model
 
-// Add placeholder statement for transition into models. Create a constant of booksData and require the path to access it.
-const booksData = require('../data/data');
-
-//Direction: set a constant of getAllBooks and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
 const getAllBooks = async (req, res, next) => {
-//Direction: within the arrow function's object, stage a try/catch statement. Make sure to account for error handling with an error message.
     try {
-        // add the await keyword
         await
-        //then chain the res.status().json() message/data you're passing through
         res
         .status(200)
         .json({ success: { message: "Found all books!" }, 
-        //revise the data object like so
-        //booksData had an empty object
-        data: booksData, statusCode: 200 }); //statusCode successfully triggered after insertion of data.js
+        //change booksData to Book model
+        data: Book, statusCode: 200 }); //statusCode successfully triggered after insertion of data.js
             /*
             [
             //insert data.js object w/o uuid
@@ -143,31 +137,25 @@ const getAllBooks = async (req, res, next) => {
         */
          
     } catch (err) {
-        //test booksData, try data with data.js object - if pulling from data.js, even plain syntax triggers error. 
       res
         .status(400)
         .json({ error: { message: "Something went wrong getting all books!" }, statusCode: 400 });
     }
 };
 
-//Direction: set a constant of getBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
+
 const getBook = async (req, res, next) => {
-    // Direction: set a constant of {id} and equate that to the req.params object.
-    const { id } = req.params; //does work 
+    const { id } = req.params; 
 
-    //Direction: create a constant of foundBook and set that to the data.js object, then use chaining to find() that book via an arrow function, and begin a second chain of book.id and STRICTLY equate that to a numeric id using the Number method.
-    const foundBook = booksData.find(book => book.id === Number(id));
+    //change booksData to Book model
+    const foundBook = Book.find(book => book.id === Number(id));
 
-    //Now, stage a try/catch statement. Make sure to account for error handling with an error message.
     try {
-        // add the await keyword
         await
-        //then chain the res.status().json() message/data you're passing through
         res
         .status(200)
         .json({ success: { message: "Found the book you are looking for!" }, 
-        //reference the foundBook in the data value
-        data: foundBook, statusCode: 200 }); //statusCode successfully triggered after insertion of data.js
+        data: foundBook, statusCode: 200 }); 
     } catch (err) {
         res
           .status(400)
@@ -334,14 +322,9 @@ const getBook = async (req, res, next) => {
 };
 
 
-//Direction: set a constant of createBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
 const createBook = async (req, res, next) => {
-    //Direction: within the arrow function's object, we are going to define our future form keys that align with the keys mentioned in the data.js object so we can capture user input and register that in our database.
 
-    // the keys are: { title, author, publisher, genre, pages, rating, synopsis }. Set that as a constant and equate it to the req.body object
     const { title, author, publisher, genre, pages, rating, synopsis } = req.body;
-  
-    //Direction: Then, we're going to define a constant variable of newBook and equate that to a new Book constructor object with keys that align with the keys mentioned in the data.js object so we can capture user input and register that in our database.
 
     const newBook = new Book({
       title,
@@ -352,19 +335,12 @@ const createBook = async (req, res, next) => {
       rating,
       synopsis
     });
-
-    //Yusuf's code
-    //Direction: Next, stage a try/catch statement. Make sure to account for error handling with an error message.
     
     try {
-    // add the await keyword and define the newBook with the .save() method. More information will come in a later unit.
       await newBook.save();
-        //then chain the res.status().json() message/data you're passing through
     res
-    //   use the 201 status code to say that the request has succeeded and new resource(s) has been created
         .status(201)
         .json({ success: { message: "A new book is created" }, 
-        // insert a key value pair of data: newBook to reflect the change
         data: newBook, statusCode: 201 });
     } catch (err) {
       res
@@ -373,20 +349,13 @@ const createBook = async (req, res, next) => {
     }
 };
 
-//Direction: set a constant of editBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
+
 const editBook = async (req, res, next) => {
-     // Direction: set a constant of {id} and equate that to the req.params object.
     const { id } = req.params;
-     //Direction: within the arrow function's object, we are going to define our future form keys that align with the keys mentioned in the data.js object so we can capture user input and register that in our database.
 
-    // the keys are: { title, author, publisher, genre, pages, rating, synopsis }. Set that as a constant and equate it to the req.body object
     const { title, author, publisher, genre, pages, rating, synopsis } = req.body;
-
-    //Yusuf's code
-    //Direction: Next, stage a try/catch statement. Make sure to account for error handling with an error message.
  
     try {
-        // add the await keyword and chain that to the findByIdAndUpdate() method with 2 parameters, one being id and the other parameter as an object
       await Book.findByIdAndUpdate(id, {
         $set: {
           title,
@@ -398,8 +367,6 @@ const editBook = async (req, res, next) => {
           synopsis
         }
       }, { new: true });
-    //   after the object, add the object of { new: true } to denote the change is correct to edit the book.
-        //then chain the res.status().json() message/data you're passing through
       res
         .status(201)
         .json({ success: { message: "Book is updated" }, statusCode: 201 });
@@ -410,25 +377,12 @@ const editBook = async (req, res, next) => {
     }
 };
 
-//Direction: set a constant of deleteBook and equate that to an asynchronous function where you have a request, response and the next keyword as a parameter before an arrow function.
+
 const deleteBook = async (req, res, next) => {
-    // Direction: set a constant of {id} and equate that to the req.params object.
+
     const { id } = req.params;
-    //EXPERIMENTAL - doesn't affect code functionality
-    /*
-    const foundBook = booksData.find(book => book.id === Number(id));
-
-    const index = comics.indexOf(foundBook);
-    comics.splice(index, 1);
-    */
-    //END
-
-    //Yusuf's code
-    //Direction: Next, stage a try/catch statement. Make sure to account for error handling with an error message.
     try {
-    // add the await keyword and chain that to the findByIdAndDelete() method with 1 parameter, id 
       await Book.findByIdAndDelete(id);
-      //then chain the res.status().json() message/data you're passing through
       res
         .status(200)
         .json({ success: { message: "Book deleted successfully!" }, statusCode: 200 });
@@ -437,6 +391,6 @@ const deleteBook = async (req, res, next) => {
         .status(400)
         .json({ error: { message: "Something went wrong while deleting the book!" }, statusCode: 400 });
     }
-  };
+};
 
 module.exports = { getAllBooks, getBook, createBook, editBook, deleteBook };

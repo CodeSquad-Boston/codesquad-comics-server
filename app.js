@@ -50,7 +50,7 @@ app.use(passport.session());
 // Routing Paths- As a middleware with the .use() to detect the request that is coming through a specific path, it will then call the router function
 // Add:
 app.use('/api/books', booksRoutes);
-app.use('/', authRoutes); //uncomment this
+//app.use('/', authRoutes); //uncomment this
 
 //Server
 app.listen(PORT, () => {
