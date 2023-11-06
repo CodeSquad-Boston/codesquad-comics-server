@@ -1,3 +1,4 @@
+//CCS-8: THE FINAL PRODUCT
 require('dotenv').config();
 require('./config/connection');
 require('./config/authStrategy'); // CCS-7 addition of require authStrategy
