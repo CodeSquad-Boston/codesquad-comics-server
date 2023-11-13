@@ -55,7 +55,8 @@ router.get('/auth/google', passport.authenticate('google', {
   failureRedirect: '/login/google/failed'
 }));
 
-// // github strategy
+// github strategy
+/*
 router.get('/login/github', passport.authenticate('github'));
 router.get('/login/github/failed', (req, res, next) => {
   res.json({ message: 'There is a problem with GitHub authentication.' });
@@ -64,6 +65,8 @@ router.get('/auth/github', passport.authenticate('github', {
   successRedirect: '/',
   failureRedirect: '/login/github/failed'
 }));
+*/
+
 
 //export the router
 module.exports = router;
