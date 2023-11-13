@@ -3,10 +3,10 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 //define the local strategy
 const LocalStrategy = require("passport-local").Strategy;
-//Test: define the github strategy
+//Define the github strategy
 const GithubStrategy = require('passport-github').Strategy;
 
-//See if it works - google strategy
+//Define google strategy
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 //define the User model
@@ -40,15 +40,16 @@ passport.use( //container to use the local strategy
 );
 
 //implement the github strategy
-passport.use(new GithubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/github'
-  },
-    (accessToken, refreshToken, profile, done) => {
+passport.use(new GithubStrategy({ //container to use the local strategy
+  //there will be several key value pairs we'll need to define
+    clientID: process.env.GITHUB_CLIENT_ID, //key: clientID, value: process.env.GITHUB_CLIENT_ID
+    clientSecret: process.env.GITHUB_CLIENT_SECRET, //key: clientSecret, value: process.env.GITHUB_CLIENT_SECRET
+    callbackURL: 'http://localhost:3000/auth/github'// key: callbackURL, value: 'http://localhost:3000/auth/github'
+  }, //write a comma and stage the next object where
+    (accessToken, refreshToken, profile, done) => { //there are 4 parameters, accessToken, refreshToken, profile, done, and an arrow function where we
       // User.create({ username: profile.username, firstName: profile.displayName, strategy: "GitHub" });
-      console.log(profile);
-      return done(null, profile);
+      console.log(profile); //console log the profile parameter to see the user's information
+      return done(null, profile); //return the done callback where there are two parameters, null and profile
     })
   );
 

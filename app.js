@@ -27,11 +27,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname + '/public')));
 //CCS-8 Index Initialization
-//Important: keep index route for ability to get to localhost initialization
 app.get('/', (request, response, next) => {
- //response.status(200).json({success: {message: "Index successful"}, statusCode: 200}); //Step 2: comment out the response.status.json line of code if you want to show a front end via HTML files. Otherwise, the json message should render on the screen
+ //response.status(200).json({success: {message: "Index successful"}, statusCode: 200}); //Step 1: comment out the response.status.json line of code if you want to show a front end via HTML files. Otherwise, the json message should render on the screen
  
- //Step 1: Add the below if you want to show a front end via HTML files.
+ //Step 2: Add the below if you want to show a front end via HTML boilerplate via template literals.
  response.send(
   `
   <!DOCTYPE html>
@@ -47,7 +46,7 @@ app.get('/', (request, response, next) => {
   </body>
   </html>
 `
- ) //Add response.render to point to the index.html file through the directory name
+ ) 
 })
 // CCS-8 end
 
