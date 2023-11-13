@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 //define the local strategy
 const LocalStrategy = require("passport-local").Strategy;
 //Test: define the github strategy
+// const GithubStrategy = require('passport-github').Strategy;
 
 //See if it works - google strategy
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -39,6 +40,17 @@ passport.use( //container to use the local strategy
 );
 
 //implement the github strategy
+passport.use(new GithubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: 'http://localhost:3000/auth/github'
+  },
+    (accessToken, refreshToken, profile, done) => {
+      // User.create({ username: profile.username, firstName: profile.displayName, strategy: "GitHub" });
+      console.log(profile);
+      return done(null, profile);
+    })
+  );
 
 //implement the google strategy
 passport.use(new GoogleStrategy({ //Use passport.use() to create a new GoogleStrategy method and create a container
