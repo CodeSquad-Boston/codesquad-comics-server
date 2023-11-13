@@ -27,13 +27,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname + '/public')));
 //CCS-8 Index Initialization
-app.set("view options", {layout: false}); //tell the app to set two parameters, the first being a string that says "view options" and the second being an object with the key/value pair of layout: false
-
 //Important: keep index route for ability to get to localhost initialization
 app.get('/', (request, response, next) => {
- //response.status(200).json({success: {message: "Index successful"}, statusCode: 200}); Then comment out the response.status.json line of code
- //Add response.render to point to the index.html file
- response.render("index.html")
+ //response.status(200).json({success: {message: "Index successful"}, statusCode: 200}); //Step 2: comment out the response.status.json line of code if you want to show a front end via HTML files. Otherwise, the json message should render on the screen
+ 
+ //Step 1: Add the below if you want to show a front end via HTML files.
+ response.send(
+  `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Test</title>
+  </head>
+  <body>
+      <h1>Test for Deployment</h1>
+      <p>Are you able to see this?</p>
+  </body>
+  </html>
+`
+ ) //Add response.render to point to the index.html file through the directory name
 })
 // CCS-8 end
 
