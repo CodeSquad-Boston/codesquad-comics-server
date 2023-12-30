@@ -55,15 +55,21 @@ router.get('/auth/google', passport.authenticate('google', {
   failureRedirect: '/login/google/failed'
 }));
 
-// // github strategy
-// router.get('/login/github', passport.authenticate('github'));
-// router.get('/login/github/failed', (req, res, next) => {
-//   res.json({ message: 'There is a problem with GitHub authentication.' });
-// });
-// router.get('/auth/github', passport.authenticate('github', {
-//   successRedirect: '/',
-//   failureRedirect: '/login/github/failed'
-// }));
+// github strategy
+//Direction: we'll need to implement three different routes here to get our GitHub Strategy.
+//GET to the path of /login/github and a second parameter that allows passport to authenticate a string of github
+router.get('/login/github', passport.authenticate('github'));
+
+//GET to the path of /login/github/failed with a callback that has a res.status.json where the message states that "There is a problem with Github Authentication".
+router.get('/login/github/failed', (req, res, next) => {
+  res.json({ message: 'There is a problem with GitHub authentication.' });
+});
+
+//Lastly, GET to the path of /auth/github with passport authentication of the github route and providing a successRedirect to / AND a failureRedirect to /login/github/failed
+router.get('/auth/github', passport.authenticate('github', {
+  successRedirect: '/',
+  failureRedirect: '/login/github/failed'
+}));
 
 //export the router
 module.exports = router;
