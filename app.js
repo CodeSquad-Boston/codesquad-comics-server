@@ -59,9 +59,10 @@ app.get('/api/books/:id', (request, response, next) => {
   response.status(200).json({success: {message: "render a file that will show the books details page, or each book by their ID"}, statusCode: 200});
 });
 
-app.get('/api/books/create', (request, response, next) => {
+app.get('/api/books/create/new', (request, response, next) => {
   response.status(200).json({success: {message: " render a file that will have the ability to create new books"}, statusCode: 200});
 });
+//3/31, Yusuf: "In the CCS-2 HW, we are asking them to create 5 new get requests. However, two of them are /api/books/:id  and /api/books/create . When we try to run create path, it registers "create" as an id and actually returns the message for /api/books/:id . There is a path clash. In future, this request will be a post request for create method and this problem will go away but since we are asking them to make get request for both of them, I thought, we could change the path for create /api/books/create/new so that there is no clash. "
 
 app.get('/api/books/edit/:id', (request, response, next) => {
   response.status(200).json({success: {message: " render the update comic book form page to modify a book by their ID"}, statusCode: 200});
