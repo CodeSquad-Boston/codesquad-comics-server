@@ -19,7 +19,7 @@ router.get('/', getAllBooks);
 router.get('/:id', getBook);
 
 //POST to the path of /create with the handler function of createBook where you would be able to create a new book entry
-router.post('/create', createBook);
+router.post('/create/new', createBook);
 //Note: navigating to http://localhost:3000/api/books/create/ will send a success message of "Found all books!", status code of 200 to denote the routing is working. Neither numbers nor :id after the slash in create will work.
 
 //PUT to the path of /edit/:id with the handler function of editBook, where you would be able to see an individual book by their specific id and update that same book you chose
